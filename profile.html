@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .profile-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-container h1 {
+            margin-bottom: 20px;
+        }
+        .profile-container p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+    <h1>User Profile</h1>
+    <p><strong>Username:</strong> <span id="username"></span></p>
+    <p><strong>Roles:</strong> <span id="roles"></span></p>
+    <button id="logoutBtn">Logout</button>
+</div>
+
+<script>
+    // Fetch the user profile data from the backend
+    document.addEventListener('DOMContentLoaded', function() {
+        const username = 'exampleUsername';  // Replace with actual username logic
+
+        fetch(`http://localhost:8080/api/profile?username=${username}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('username').textContent = data.username;
+            document.getElementById('roles').textContent = data.roles.join(', ');
+        })
+        .catch(error => {
+            console.error('Error fetching profile:', error);
+        });
+    });
+
+    // Handle logout
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        window.location.href = 'index.html';
+    });
+</script>
+
+</body>
+</html>
